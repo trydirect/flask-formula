@@ -16,8 +16,8 @@ ENV LANGUAGE en_US:en
 ENV LC_ALL en_US.UTF-8
 
 WORKDIR /app
-COPY app/requirements.txt /app/requirements.txt
-COPY app/supervisord.conf /etc/supervisord.conf
+COPY requirements.txt /app/requirements.txt
+COPY supervisord.conf /etc/supervisord.conf
 COPY src/flask_app.tar.gz /app/flask_app.tar.gz
 COPY src/Flask-1.0.2.tar.gz /app/Flask-1.0.2.tar.gz
 RUN pip install -U Flask-1.0.2.tar.gz
