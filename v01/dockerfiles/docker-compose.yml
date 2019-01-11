@@ -1,0 +1,138 @@
+version: '2.1'
+
+volumes:
+  user-db:
+    driver: local
+
+  redis-data:
+    driver: local
+
+services:
+  web:
+      image: ${REGISTRY}optimum/development:flask-formula-1.0.2-s
+      container_name: web
+      entrypoint: /usr/bin/supervisord -c /etc/supervisor/supervisord.conf -n
+      volumes:
+        - ./configs/supervisord/flask_formula.conf:/etc/supervisor/conf.d/flask_formula.conf
+        - ./backend:/app/web
+      links:
+       - db
+       - mq
+      depends_on:
+        db:
+          condition: service_healthy
+        mq:
+          condition: service_healthy
+      ports:
+       - "8000:8000"
+      env_file: .env
+
+  db:
+      container_name: db
+      healthcheck:
+        test: ["CMD-SHELL", "pg_isready -U postgres"]
+        interval: 10s
+        timeout: 10s
+        retries: 10
+      image: postgres:9.4
+      restart: always
+      ports:
+        - "5432:5432"
+      env_file:
+        - .env
+      volumes:
+          - user-db:/var/lib/postgresql/data/pgdata
+          - ./init-user-db.sh:/docker-entrypoint-initdb.d/init-user-db.sh
+
+  # basic data bus for interaction between servers
+  mq:
+      container_name: mq
+      image: rabbitmq:3-management
+      restart: always
+      env_file:
+        - .env
+      ports:
+          # note! from others containers need connect to 5672 port, not 2172
+          # 2172 using for debug
+          - "2172:5672"
+          - "5672"
+          - "21072:15672"
+      healthcheck:
+        timeout: 5s
+        interval: 5s
+        retries: 5
+        test: ["CMD", "rabbitmqctl", "status"]
+
+  elasticsearch:
+      image: elasticsearch:5.4
+      restart: always
+      container_name: elasticsearch
+      ports:
+        - "9200:9200"
+      environment:
+        ES_JAVA_OPTS: "-Xms512m -Xmx512m"
+        discovery.type: "single-node"
+      volumes:
+        - ./elasticsearch/data:/usr/share/elasticsearch/data
+
+  kibana:
+     image: kibana:5.4.3
+     restart: always
+     container_name: kibana
+     ports:
+       - "5601:5601"
+     links:
+       - elasticsearch
+     environment:
+       ELASTICSEARCH_URL: ${ELASTICSEARCH_URL}
+
+  logstash:
+     image: logstash:5.4.3
+     container_name: logstash
+     restart: always
+     volumes:
+        - ./configs/logstash:/config-dir
+     command: logstash -f /config-dir/logstash.conf
+     ports:
+       - "5044:5044"
+     depends_on:
+       - elasticsearch
+
+  nginx:
+      image: ${REGISTRY}optimum/nginx-le:stable
+      container_name: nginx
+      env_file: .env
+      ports:
+        - "80:80"
+        - "443:443"
+      volumes:
+        - ./certs/ssl:/etc/nginx/ssl
+        - ./certs/letsencrypt:/etc/letsencrypt
+        - ./nginx/conf.d:/etc/nginx/conf.d/
+        - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+        - ./configs/supervisord/nginx.conf:/etc/supervisor/conf.d/nginx.conf
+      links:
+        - web
+      depends_on:
+        - web
+      entrypoint: /usr/bin/supervisord -c /etc/supervisor/supervisord.conf.d -n
+
+  redis:
+    image: redis:latest
+    container_name: redis
+    restart: always
+    ports:
+      - 6379
+    volumes:
+      - redis-data:/data
+    env_file:
+      - .env
+    healthcheck:
+      timeout: 5s
+      interval: 5s
+      retries: 5
+      test:
+         - "CMD"
+         - "bash"
+         - "-c"
+         - "exec 3<> /dev/tcp/127.0.0.1/6379 && echo PING >&3 && head -1 <&3 | grep PONG"

@@ -1,0 +1,15 @@
+Flask
+Flask-SQLAlchemy
+Flask-Migrate
+flask-restful
+Flask-WTF
+itsdangerous
+Flask-Mail
+Flask-Script
+flask-jsontools
+flask-redis
+requests
+redis
+psycopg2
+unipath
+pika
