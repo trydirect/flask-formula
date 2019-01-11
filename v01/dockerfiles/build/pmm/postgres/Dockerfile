@@ -18,11 +18,11 @@ RUN set -ex; \
 	apt-get install -y gnupg apt-transport-https; \
 	export GNUPGHOME="$(mktemp -d)"; \
 	for key in $GPG_KEYS; do \
-                gpg --keyserver pgp.mit.edu --recv-keys "$key" || \
-                gpg --keyserver keyserver.pgp.com --recv-keys "$key" || \
-		gpg --keyserver ha.pool.sks-keyservers.net --recv-keys "$key"; \
+                gpg --keyserver --no-tty pgp.mit.edu --recv-keys "$key" || \
+                gpg --keyserver --no-tty keyserver.pgp.com --recv-keys "$key" || \
+		gpg --keyserver --no-tty ha.pool.sks-keyservers.net --recv-keys "$key"; \
 	done; \
-	gpg --export $GPG_KEYS > /etc/apt/trusted.gpg.d/percona.gpg; \
+	gpg --export --no-tty $GPG_KEYS > /etc/apt/trusted.gpg.d/percona.gpg; \
 	rm -r "$GNUPGHOME"; \
 	apt-key list; \
 	echo 'deb https://repo.percona.com/apt stretch main' > /etc/apt/sources.list.d/percona.list; \
