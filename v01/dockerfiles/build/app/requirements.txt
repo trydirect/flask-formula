@@ -13,3 +13,4 @@ redis
 psycopg2
 unipath
 pika
+uwsgi
