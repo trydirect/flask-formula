@@ -15,14 +15,19 @@ ENV GPG_KEYS \
 	
 RUN set -ex; \
     	apt-get update; \
-	apt-get install -y gnupg apt-transport-https; \
+	apt-get install -y apt-utils gnupg apt-transport-https; \
 	export GNUPGHOME="$(mktemp -d)"; \
-	for key in $GPG_KEYS; do \
-                gpg --keyserver --no-tty pgp.mit.edu --recv-keys "$key" || \
-                gpg --keyserver --no-tty keyserver.pgp.com --recv-keys "$key" || \
-		gpg --keyserver --no-tty ha.pool.sks-keyservers.net --recv-keys "$key"; \
-	done; \
-	gpg --export --no-tty $GPG_KEYS > /etc/apt/trusted.gpg.d/percona.gpg; \
+#	for key in $GPG_KEYS; do \
+#                gpg --keyserver pgp.mit.edu --recv-keys "$key" || \
+#                gpg --keyserver keyserver.pgp.com --recv-keys "$key" || \
+#		gpg --keyserver ha.pool.sks-keyservers.net --recv-keys "$key"; \
+#	done; \
+#	for key in $GPG_KEYS; do \
+##        apt-key adv --no-tty --keyserver keys.gnupg.net --recv-keys "$key"; \
+#         apt-key adv --keyserver hkp://pgp.mit.edu:80 --recv-keys "$key"; \
+#	done; \
+#	gpg --export $GPG_KEYS > /etc/apt/trusted.gpg.d/percona.gpg; \
+    apt-key adv --no-tty --keyserver hkp://pgp.mit.edu --recv-keys 9334A25F8507EFA5; \
 	rm -r "$GNUPGHOME"; \
 	apt-key list; \
 	echo 'deb https://repo.percona.com/apt stretch main' > /etc/apt/sources.list.d/percona.list; \
