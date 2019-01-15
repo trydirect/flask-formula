@@ -15,10 +15,6 @@ ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US:en
 ENV LC_ALL en_US.UTF-8
 
-# compile uwsgi plugin for python3.6
-RUN PYTHON=python3.6 uwsgi --build-plugin "/usr/src/uwsgi/plugins/python python36"
-RUN mv python36_plugin.so /usr/lib/uwsgi/plugins/python36_plugin.so
-
 WORKDIR /app
 COPY requirements.txt /app/requirements.txt
 COPY supervisord.conf /etc/supervisord.conf
@@ -29,3 +25,7 @@ RUN pip install git+https://github.com/Supervisor/supervisor
 
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
+
+# compile uwsgi plugin for python3.6
+RUN PYTHON=python3.6 uwsgi --build-plugin "/usr/src/uwsgi/plugins/python python36"
+RUN mv python36_plugin.so /usr/lib/uwsgi/plugins/python36_plugin.so
