@@ -1,6 +1,0 @@
-Flask
-flask-login
-python-dotenv
-requests
-unipath
-docker
