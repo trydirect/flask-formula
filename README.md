@@ -12,7 +12,9 @@ Extra libs and validator classes included.
 * Docker Compose integration and optimization for local development
 * Production ready Python web server using Nginx and uWSGI
 * Python Flask backend:
-* Nginx plus HTTPS certificate generation with Let's Encrypt
+* Nginx plus HTTPS certificate generation with Let's Encrypt 
+
+
 
 The final project structure will look like this: 
 
@@ -149,7 +151,6 @@ logstash              /docker-entrypoint.sh -e         Up             0.0.0.0:50
 mq                    docker-entrypoint.sh rabbi ...   Up (healthy)   15671/tcp, 0.0.0.0:21072->15672/tcp, 25672/tcp, 4369/tcp, 5671/tcp, 0.0.0.0:2172->5672/tcp,0.0.0.0:32770->5672/tcp
 nginx                 /usr/bin/supervisord -c /e ...   Up             0.0.0.0:443->443/tcp, 0.0.0.0:80->80/tcp
 redis                 docker-entrypoint.sh redis ...   Up (healthy)   6379/tcp
-trydirect_agent       python app.py                    Up             0.0.0.0:5000->5000/tcp
 web                   /usr/bin/supervisord -c /e ...   Up             0.0.0.0:8000->8000/tcp   
 ```
 
