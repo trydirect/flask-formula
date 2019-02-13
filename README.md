@@ -2,8 +2,19 @@
 
 Flask Restful API backend template - project generator/development environment.
 Can be used by Flask developers for quick start on building Restful API on Flask.
-Included:  rabbitmq, redis, elasticsearch, logstash, postgresql, nginx, supervisord, pmm, kibana
-Extra libs and validator classes included. 
+
+## Stack includes
+
+* rabbitmq 
+* redis 
+* elasticsearch
+* logstash
+* postgresql
+* nginx
+* supervisord
+* pmm
+* kibana
+Extra python libs and validator classes included. 
 
 
 ## Features
