@@ -1,8 +1,8 @@
 {
-    "name": "FLask REST API Template",
-    "version": "1.0.2",
-    "description": "FLask REST API Template",
-    "title": "FLask REST API Template",
+    "name": "Flask REST API Template",
+    "version": "0.1",
+    "description": "Flask REST API Template",
+    "title": "Flask REST API Template",
     "url" : ""
   }
   

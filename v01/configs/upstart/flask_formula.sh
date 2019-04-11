@@ -12,4 +12,4 @@ set -e
 
 export PATH=/sbin:/bin:/usr/sbin:/usr/bin:/usr/local/sbin:/usr/local/bin
 
-cd /home/trydirect/flask_formula && docker-compose up -d
+cd /home/root/flask_formula && docker-compose up -d
