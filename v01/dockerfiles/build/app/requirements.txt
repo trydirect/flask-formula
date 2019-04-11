@@ -15,3 +15,5 @@ unipath
 pika
 uwsgi
 apidoc
+hvac
+docker
