@@ -7,8 +7,8 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 RUN apt-get update -y && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
 curl locales gcc libpq5 git curl lsof libpq-dev libffi-dev supervisor unzip make procps libc6-dev \
-uwsgi uwsgi-src uuid-dev libcap-dev
-
+uwsgi uwsgi-src uuid-dev libcap-dev; \
+groupadd -r -g 1000 trydirect; useradd -r -u 1000 -g 1000 -m -c "app account" -d /home/trydirect -s /bin/bash trydirect
 
 # Set the locale
 RUN sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen && \
