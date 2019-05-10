@@ -1,3 +1,10 @@
+
+![Docker Stars](https://img.shields.io/docker/stars/trydirect/flask-formula.svg)
+![Docker Pulls](https://img.shields.io/docker/pulls/trydirect/flask-formula.svg)
+![Docker Automated](https://img.shields.io/docker/cloud/automated/trydirect/flask-formula.svg)
+![Docker Build](https://img.shields.io/docker/cloud/build/trydirect/flask-formula.svg)
+
+	
 # flask-formula
 
 Flask Restful API backend template - project generator/development environment.
