@@ -3,7 +3,7 @@
 ![Docker Pulls](https://img.shields.io/docker/pulls/trydirect/flask-formula.svg)
 ![Docker Automated](https://img.shields.io/docker/cloud/automated/trydirect/flask-formula.svg)
 ![Docker Build](https://img.shields.io/docker/cloud/build/trydirect/flask-formula.svg)
-![Gitter chat](https://badges.gitter.im/trydirect/community.png)](https://gitter.im/try-direct/community)
+[![Gitter chat](https://badges.gitter.im/trydirect/community.png)](https://gitter.im/try-direct/community)
 	
 # flask-formula
 
