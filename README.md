@@ -5,7 +5,7 @@
 ![Docker Build](https://img.shields.io/docker/cloud/build/trydirect/flask-formula.svg)
 [![Gitter chat](https://badges.gitter.im/trydirect/community.png)](https://gitter.im/try-direct/community)
 	
-# flask-formula
+# Flask Restful API template
 
 Flask Restful API backend template - project generator/development environment.
 Can be used by Flask developers for quick start on building Restful API on Flask.
