@@ -45,7 +45,7 @@ services:
         - .env
       volumes:
           - user-db:/var/lib/postgresql/data/pgdata
-          - ./init-user-db.sh:/docker-entrypoint-initdb.d/init-user-db.sh
+          - ./scripts/init-user-db.sh:/docker-entrypoint-initdb.d/init-user-db.sh
 
   # basic data bus for interaction between servers
   mq:
@@ -85,7 +85,7 @@ services:
       depends_on:
         - web
       volumes:
-        - ./elasticsearch/data:/usr/share/elasticsearch/data
+        - ./configs/elasticsearch/data:/usr/share/elasticsearch/data
         - ./configs/elasticsearch/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
 
   kibana:
@@ -100,7 +100,8 @@ services:
        ELASTICSEARCH_URL: http://elasticsearch:9200
 
   logstash:
-     image: ${REGISTRY}trydirect/flask-formula:logstash
+     image: trydirect/flask-formula:logstash
+     build: build/logstash
      container_name: logstash
      restart: always
      ports:
@@ -109,17 +110,17 @@ services:
        - elasticsearch
 
   nginx:
-      image: ${REGISTRY}optimum/nginx-le:stable
+      image: trydirect/nginx
       container_name: nginx
       env_file: .env
       ports:
         - "80:80"
         - "443:443"
       volumes:
-        - ./certs/ssl:/etc/nginx/ssl
-        - ./certs/letsencrypt:/etc/letsencrypt
-        - ./nginx/conf.d:/etc/nginx/conf.d/
-        - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+        - ./configs/certs/ssl:/etc/nginx/ssl
+        - ./configs/certs/letsencrypt:/etc/letsencrypt
+        - ./configs/nginx/conf.d:/etc/nginx/conf.d/
+        - ./configs/nginx/nginx.conf:/etc/nginx/nginx.conf
         - ./configs/supervisord/nginx.conf:/etc/supervisor/conf.d/nginx.conf
       links:
         - web
@@ -149,5 +150,5 @@ services:
          - "exec 3<> /dev/tcp/127.0.0.1/6379 && echo PING >&3 && head -1 <&3 | grep PONG"
 
   pmm:
-    image: ${REGISTRY}trydirect/flask-formula:pmm
+    image: trydirect/flask-formula:pmm
     restart: always
