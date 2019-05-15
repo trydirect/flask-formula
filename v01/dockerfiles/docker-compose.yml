@@ -9,7 +9,8 @@ volumes:
 
 services:
   web:
-      image: ${REGISTRY}trydirect/flask-formula:app
+      image: trydirect/flask-formula:app
+      build: build
       container_name: web
       restart: always
       entrypoint: /usr/bin/supervisord -c /etc/supervisor/supervisord.conf -n
