@@ -21,10 +21,8 @@ services:
        - db
        - mq
       depends_on:
-        db:
-          condition: service_healthy
-        mq:
-          condition: service_healthy
+       - db
+       - mq
       ports:
        - "8000:8000"
       env_file: .env
