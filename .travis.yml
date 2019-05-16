@@ -16,8 +16,8 @@ before_install:
 
 install:
   - cd v01/dockerfiles
-  - docker-compose build
-  - docker-compose up -d
+  - docker-compose -f docker-compose-build.yml build
+  - docker-compose -f docker-compose-build.yml up -d
   - docker-compose ps
 
 
