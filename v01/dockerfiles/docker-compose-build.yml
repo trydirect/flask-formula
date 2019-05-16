@@ -66,7 +66,7 @@ services:
         - ./configs/kibana/kibana.yml:/usr/share/kibana/config/kibana.yml
 
   logstash:
-    build: ./configs/logstash
+    build: ./build/logstash
     container_name: logstash
     restart: always
     environment:
