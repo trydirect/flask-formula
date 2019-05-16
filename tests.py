@@ -22,6 +22,7 @@ time.sleep(3)
 assert nginx.status == 'running'
 
 # Kibana
+time.sleep(20)
 kibana = client.containers.get('kibana')
 assert kibana.status == 'running'
 response = requests.get("http://127.0.0.1:5601")
@@ -32,7 +33,7 @@ assert '"statusCode":404,"req":{"url":"/elasticsearch/logstash-' not in kibana.l
 # Elasticsearch
 elastic = client.containers.get('elasticsearch')
 assert elastic.status == 'running'
-port=client.api.inspect_container('elasticsearch')['NetworkSettings']['Ports']['9200/tcp'][0]['HostPort']
+port = client.api.inspect_container('elasticsearch')['NetworkSettings']['Ports']['9200/tcp'][0]['HostPort']
 response = requests.get("http://localhost:{}".format(port))
 assert '"name" : "elasticsearch"' in response.text
 assert '"number" : "5.4.3"' in response.text
@@ -80,5 +81,3 @@ assert logstash.status == 'running'
 assert 'Successfully started Logstash API endpoint {:port=>9600}' in logstash.logs()
 assert 'Pipeline main started' in logstash.logs()
 
-for c in client.containers.list():
-    assert c.status == 'running'

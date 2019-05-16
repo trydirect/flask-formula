@@ -16,8 +16,8 @@ before_install:
 
 install:
   - cd v01/dockerfiles
-  - docker-compose build
-  - docker-compose up -d
+  - docker-compose -f docker-compose-build.yml build
+  - docker-compose -f docker-compose-build.yml up -d
   - docker-compose ps
 
 
@@ -40,7 +40,7 @@ notifications:
 
 after_success:
   - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
-  - export REPO=trydirect/flask-formula:app
+  - export REPO=trydirect/flask-formula
   - export TAG=app
   - docker build -f Dockerfile -t $REPO:$COMMIT .
   - docker tag $REPO:$COMMIT $REPO:$TAG
