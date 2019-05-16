@@ -19,7 +19,6 @@ nginx_cfg = nginx.exec_run("/usr/sbin/nginx -T")
 assert nginx.status == 'running'
 assert 'server_name _;' in nginx_cfg.output.decode()
 assert "error_log /proc/self/fd/2" in nginx_cfg.output.decode()
-assert "location = /.well-known/acme-challenge/" in nginx_cfg.output.decode()
 assert 'HTTP/1.1" 500' not in nginx.logs()
 
 # test restart
@@ -38,20 +37,32 @@ assert '"statusCode":404,"req":{"url":"/elasticsearch/logstash-' not in kibana.l
 # Logstash
 logstash = client.containers.get('logstash')
 assert logstash.status == 'running'
-print(logstash.logs())
-# assert 'Successfully started Logstash API endpoint {:port=>9600}' in logstash.logs()
-# assert 'Pipeline main started' in logstash.logs()
+# print(logstash.logs())
+assert 'Successfully started Logstash API endpoint {:port=>9600}' in logstash.logs()
+assert 'Pipeline main started' in logstash.logs()
 
 # Elasticsearch
 elastic = client.containers.get('elasticsearch')
 assert elastic.status == 'running'
-response = requests.get("http://127.0.0.1:9200")
-assert response.status_code == 200
+port=client.api.inspect_container('elasticsearch')['NetworkSettings']['Ports']['9200/tcp'][0]['HostPort']
+response = requests.get("http://localhost:{}".format(port))
+assert '"name" : "elasticsearch"' in response.text
 assert '"number" : "5.4.3"' in response.text
+assert response.status_code == 200
 assert ' bound_addresses {0.0.0.0:9200}' in elastic.logs()
 
 web = client.containers.get('web')
+# print(web.logs())
+assert 'spawned uWSGI master process' in web.logs()
+assert 'spawned uWSGI worker 1' in web.logs()
+assert 'spawned uWSGI worker 2' in web.logs()
+assert 'spawned uWSGI worker 3' in web.logs()
+assert 'spawned uWSGI worker 4' in web.logs()
 assert web.status == 'running'
+response = requests.get("http://localhost/api/v1/hello")
+assert response.status_code == 200
+assert "Hello World" in response.text
+print(response.text)
 
 redis = client.containers.get('redis')
 assert redis.status == 'running'
@@ -62,10 +73,10 @@ assert "Ready to accept connections" in redis_log.decode()
 
 db = client.containers.get('db')
 assert db.status == 'running'
-cnf = db.exec_run('psql -U symfony -h 127.0.0.1 -p 5432 -c "select 1"')
-print(cnf.output.decode())
+cnf = db.exec_run('psql -U flask -h 127.0.0.1 -p 5432 -c "select 1"')
 log = db.logs()
-# assert "Ready to accept connections" in log.decode()
+# print(log.decode())
+assert "database system is ready to accept connections" in log.decode()
 
 mq = client.containers.get('mq')
 assert mq.status == 'running'
@@ -74,7 +85,3 @@ assert 'Server startup complete; 3 plugins started' in logs.decode()
 
 for c in client.containers.list():
     assert c.status == 'running'
-
-#response = requests.get("http://127.0.0.1:9000")
-#assert response.status_code == 200
-
