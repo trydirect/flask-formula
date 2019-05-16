@@ -1,16 +1,11 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-import os
 import time
 import docker
 import requests
 
 client = docker.from_env()
-
-
-# Testing Symfony build
-
 time.sleep(20)  # we expect all containers are up and running in 20 secs
 
 # NGINX
@@ -33,13 +28,6 @@ response = requests.get("http://127.0.0.1:5601")
 assert response.status_code == 200
 assert "var hashRoute = '/app/kibana'" in response.text
 assert '"statusCode":404,"req":{"url":"/elasticsearch/logstash-' not in kibana.logs()
-
-# Logstash
-logstash = client.containers.get('logstash')
-assert logstash.status == 'running'
-# print(logstash.logs())
-assert 'Successfully started Logstash API endpoint {:port=>9600}' in logstash.logs()
-assert 'Pipeline main started' in logstash.logs()
 
 # Elasticsearch
 elastic = client.containers.get('elasticsearch')
@@ -82,6 +70,14 @@ mq = client.containers.get('mq')
 assert mq.status == 'running'
 logs = mq.logs()
 assert 'Server startup complete; 3 plugins started' in logs.decode()
+
+time.sleep(20)   # logstash needs more time to start, expect ~ 40 sec
+# Logstash
+logstash = client.containers.get('logstash')
+assert logstash.status == 'running'
+# print(logstash.logs())
+assert 'Successfully started Logstash API endpoint {:port=>9600}' in logstash.logs()
+assert 'Pipeline main started' in logstash.logs()
 
 for c in client.containers.list():
     assert c.status == 'running'
