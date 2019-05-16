@@ -80,6 +80,3 @@ assert logstash.status == 'running'
 assert 'Successfully started Logstash API endpoint {:port=>9600}' in logstash.logs()
 assert 'Pipeline main started' in logstash.logs()
 
-for c in client.containers.list():
-    print(c.name)
-    assert c.status == 'running'
