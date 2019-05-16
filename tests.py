@@ -66,12 +66,13 @@ log = db.logs()
 # print(log.decode())
 assert "database system is ready to accept connections" in log.decode()
 
+time.sleep(20)   # rabbitmq needs more time to start, expect <= 40 sec
 mq = client.containers.get('mq')
 assert mq.status == 'running'
 logs = mq.logs()
 assert 'Server startup complete; 3 plugins started' in logs.decode()
 
-time.sleep(20)   # logstash needs more time to start, expect ~ 40 sec
+time.sleep(20)   # logstash needs more time to start, expect <= 60 sec
 # Logstash
 logstash = client.containers.get('logstash')
 assert logstash.status == 'running'
