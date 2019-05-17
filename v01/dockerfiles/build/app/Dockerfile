@@ -4,7 +4,7 @@ LABEL maintainer="info@optimum-web.com"
 ENV TZ=America/Los_Angeles
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
-RUN apt-get update -y && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
+RUN apt-get update -y && DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y \
 curl locales gcc libpq5 git curl lsof libpq-dev libffi-dev supervisor unzip make procps libc6-dev \
 uwsgi uwsgi-src uuid-dev libcap-dev && apt-get clean && rm -rf /var/lib/apt/lists/*; \
 groupadd -r -g 1000 trydirect; useradd -r -u 1000 -g 1000 -m -c "app account" -d /home/trydirect -s /bin/bash trydirect
