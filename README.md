@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.com/trydirect/symfony4-restful.svg?branch=master)](https://travis-ci.com/trydirect/symfony4-restful)
+[![Build Status](https://travis-ci.com/trydirect/flask-formula.svg?branch=master)](https://travis-ci.com/trydirect/flask-formula)
 ![Docker Stars](https://img.shields.io/docker/stars/trydirect/flask-formula.svg)
 ![Docker Pulls](https://img.shields.io/docker/pulls/trydirect/flask-formula.svg)
 ![Docker Automated](https://img.shields.io/docker/cloud/automated/trydirect/flask-formula.svg)
@@ -9,6 +9,7 @@
 
 Flask Restful API backend template - project generator/development environment.
 Can be used by Flask developers for quick start on building Restful API on Flask.
+This stack allows you to setup development environment with a single docker-compose command
 
 ## Stack includes
 
@@ -219,6 +220,6 @@ web                   /usr/bin/supervisord -c /e ...   Up             0.0.0.0:80
 
 
 
-Support Development
+# Support Development
 
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=2BH8ED2AUU2RL)
