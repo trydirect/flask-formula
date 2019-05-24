@@ -19,11 +19,45 @@ Can be used by Flask developers for quick start on building Restful API on Flask
 * postgresql
 * nginx
 * supervisord
-* pmm
 * kibana
 
 Extra python libs and validator classes included. 
 
+
+## Note
+Before installing this project, please, make sure you have installed docker and docker-compose
+
+To install docker execute: 
+```sh
+$ curl -fsSL https://get.docker.com -o get-docker.sh
+$ sh get-docker.sh
+$ pip install docker-compose
+```
+## Installation
+Clone this project into your work directory:
+```sh
+$ git clone "https://github.com/trydirect/flask-formula.git"
+```
+Then build it via docker-compose:
+```sh
+$ cd flask-formula/v01/dockerfiles
+$ docker-compose up -d
+```
+Now, let's check it out
+```
+$ curl -i localhost/api/v1/hello
+HTTP/1.1 200 OK
+Server: nginx/1.14.2
+Date: Fri, 24 May 2019 15:33:02 GMT
+Content-Type: application/json
+Content-Length: 14
+Connection: keep-alive
+Access-Control-Allow-Origin: *
+Access-Control-Allow-Headers: X-Requested-With, Content-Type, X-Custom-Header
+Access-Control-Allow-Methods: GET, POST, PUT, PATCH, DELETE
+
+"Hello World"
+```
 
 ## Features
 
@@ -174,3 +208,17 @@ web                   /usr/bin/supervisord -c /e ...   Up             0.0.0.0:80
 ```
 
 
+
+# Contributing
+
+1. Fork it (https://github.com/trydirect/flask-formula/fork)
+2. Create your feature branch (git checkout -b feature/fooBar)
+3. Commit your changes (git commit -am 'Add some fooBar')
+4. Push to the branch (git push origin feature/fooBar)
+5. Create a new Pull Request
+
+
+
+Support Development
+
+[![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=2BH8ED2AUU2RL)
