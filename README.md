@@ -8,7 +8,7 @@
 # Flask Restful API template
 
 Flask Restful API backend template - project generator/development environment.
-Can be used by Flask developers for quick start on building Restful API on Flask.
+Can be used by Python developers for quick start on building Restful API on Flask.
 This stack allows you to setup development environment with a single docker-compose command
 
 ## Stack includes
