@@ -8,7 +8,7 @@ filebeat.prospectors:
   fields:
       enviroment: dev
       instance: demo.local
-      project: symfony-rest
+      project: flask-formula
   json.message_key: log
   fields_under_root: true
   exclude_lines: ['.*container_cadvisor.*']

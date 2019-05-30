@@ -21,6 +21,7 @@ Can be used by Flask developers for quick start on building Restful API on Flask
 * supervisord
 * pmm
 * kibana
+* apidoc
 
 Extra python libs and validator classes included. 
 

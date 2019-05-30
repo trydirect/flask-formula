@@ -148,7 +148,7 @@ services:
       - ./configs/nginx/conf.d:/etc/nginx/conf.d
       - ./configs/supervisord:/etc/supervisor/conf.d/
       - ./configs/cron/nginx:/var/spool/cron/crontabs
-      - ./configs/symfony:/var/www/html
+      - ./backend/app:/var/www/html
     entrypoint: /usr/bin/supervisord -c /etc/supervisor/supervisord.conf -n
 
   # basic data bus for interaction between servers
