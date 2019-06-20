@@ -216,7 +216,7 @@ $ ./scripts/apidoc.sh
 ```
 
 ## Quick deployment (unstable/testing mode)
-[<img src="https://img.shields.io/badge/quick%20deploy-%40try.direct-brightgreen.svg">](https://dev.try.direct/server/user/deploy/InN5bWZvbnk0LXJlc3RmdWx8NXwxOCI.D9EX1g.6iL8vqlhBaFKxBlCiJrNcrorvIw/)
+[<img src="https://img.shields.io/badge/quick%20deploy-%40try.direct-brightgreen.svg">](https://dev.try.direct/server/user/deploy/ImZsYXNrLWZvcm11bGF8NXwxIg.D9EX1g.6jo9au8-bMzGgQyaEJzo6Em5zOk/)
 
 # Contributing
 
