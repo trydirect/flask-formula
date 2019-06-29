@@ -9,7 +9,6 @@
 
 Flask Restful API backend template - project generator/development environment.
 Can be used by Python developers for quick start on building Restful API on Flask.
-This stack allows you to setup development environment with a single docker-compose command
 
 ## Stack includes
 
@@ -36,15 +35,25 @@ $ sh get-docker.sh
 $ pip install docker-compose
 ```
 ## Installation
+
 Clone this project into your work directory:
+
 ```sh
 $ git clone "https://github.com/trydirect/flask-formula.git"
 ```
-Then build it via docker-compose:
+
+Then build it with the following command:
 ```sh
-$ cd flask-formula/v01/dockerfiles
-$ docker-compose up -d
+$ cd flask-formula
+$ ./setup.sh
 ```
+
+Add localdomain to your hosts file Linux, OSX: 
+
+```
+echo  "127.0.0.1 localdomain kibana.localdomain" | sudo tee -a /etc/hosts
+```
+
 Now, let's check it out
 ```
 $ curl -i localhost/api/v1/hello
@@ -60,6 +69,17 @@ Access-Control-Allow-Methods: GET, POST, PUT, PATCH, DELETE
 
 "Hello World"
 ```
+
+Default kibana creds:  
+- login: admin   
+- password:  admin
+
+| URL | App |
+| --- | --- |
+| http://localhost | Api doc |
+| http://localhost/api/v1/hello | Api hello endpoint |
+| http://kibana.localdomain | Kibana dashboard |
+
 
 ## Features
 
@@ -215,10 +235,14 @@ web                   /usr/bin/supervisord -c /e ...   Up             0.0.0.0:80
 $ ./scripts/apidoc.sh
 ```
 
-## Quick deployment (unstable/testing mode)
+
+## Quick deployment to cloud 
+##### Amazon AWS, Digital Ocean, Hetzner and others
 [<img src="https://img.shields.io/badge/quick%20deploy-%40try.direct-brightgreen.svg">](https://dev.try.direct/server/user/deploy/ImZsYXNrLWZvcm11bGF8NXwxIg.D9EX1g.6jo9au8-bMzGgQyaEJzo6Em5zOk/)
 
-# Contributing
+
+
+## Contributing
 
 1. Fork it (https://github.com/trydirect/flask-formula/fork)
 2. Create your feature branch (git checkout -b feature/fooBar)
@@ -228,6 +252,6 @@ $ ./scripts/apidoc.sh
 
 
 
-# Support Development
+## Support Development
 
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=2BH8ED2AUU2RL)

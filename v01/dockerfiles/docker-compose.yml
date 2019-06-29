@@ -145,7 +145,7 @@ services:
       - web
       - kibana
     volumes:
-      - .htpasswd:/etc/nginx/conf.d/.htpasswd
+      - ./configs/nginx/conf.d/.htpasswd:/etc/nginx/conf.d/.htpasswd
       - ./configs/certs/ssl:/etc/nginx/ssl
       - ./configs/certs/letsencrypt:/etc/letsencrypt
       - ./configs/nginx/nginx.conf:/etc/nginx/nginx.conf
