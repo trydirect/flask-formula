@@ -4,8 +4,7 @@
 ![Docker Automated](https://img.shields.io/docker/cloud/automated/trydirect/flask-formula.svg)
 ![Docker Build](https://img.shields.io/docker/cloud/build/trydirect/flask-formula.svg)
 [![Gitter chat](https://badges.gitter.im/trydirect/community.png)](https://gitter.im/try-direct/community)
-[<img src="https://img.shields.io/badge/quick%20deploy-%40try.direct-brightgreen.svg">](https://dev.try.direct/server/user/deploy/ImZsYXNrLWZvcm11bGF8NnwxIg.EAoFeA.uX905WE6PHwsURU1_FiOMS0Ar3k/)
-	
+
 # Flask Restful API template
 
 Flask Restful API backend template - project generator/development environment.
