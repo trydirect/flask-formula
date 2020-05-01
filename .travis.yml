@@ -29,7 +29,7 @@ script:
 notifications:
   slack:
     rooms:
-    - optimum-team:GycletOWK4Kt95GktwYwfUMp#build
+    - optimum-team:"$SLACK"#build
 after_success:
 - cd v01/dockerfiles
 - echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
