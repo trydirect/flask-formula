@@ -13,7 +13,7 @@ before_install:
 - docker-compose --version
 install:
 - cd v01/dockerfiles
-- docker-compose -f docker-compose-build.yml build
+- COMPOSE_DOCKER_CLI_BUILD=1 DOCKER_BUILDKIT=1 docker-compose -f docker-compose-build.yml build
 - docker-compose -f docker-compose-build.yml up -d
 - docker-compose ps
 before_script:
