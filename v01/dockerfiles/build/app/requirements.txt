@@ -1,4 +1,5 @@
-Flask==1.0.2
+pyyaml==3.13
+Flask==1.1.2
 Flask-SQLAlchemy
 Flask-Migrate
 flask-restful
@@ -17,3 +18,4 @@ uwsgi
 apidoc
 hvac
 docker
+email_validator
