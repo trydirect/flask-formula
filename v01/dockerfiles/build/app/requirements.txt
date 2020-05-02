@@ -18,3 +18,4 @@ uwsgi
 apidoc
 hvac
 docker
+email_validator
